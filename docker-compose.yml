@@ -1,0 +1,25 @@
+version: '3'
+services:
+  flask-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4000:8000"
+    networks:
+      - mynetwork
+    depends_on:
+      - mongodb
+    environment:
+      MONGO_URI: "mongodb://mongodb:27017/flaskapp"
+
+  mongodb:
+    image: mongo
+    container_name: my-mongodb
+    ports:
+      - "27017:27017"
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
