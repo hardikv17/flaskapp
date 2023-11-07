@@ -5,11 +5,17 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import jwt
 from datetime import datetime, timedelta
 from functools import wraps
+from dotenv import load_dotenv
+import os
 
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] = '9b7799e4e69e8419ea54596df9bd214948b3b0c5c1ebdf3510d6b67a4145f3cc'
-app.config['MONGO_URI'] = 'mongodb://localhost:27017/flaaskapp'  # Replace with your MongoDB URI
+
+load_dotenv('.env')
+
+
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+app.config['MONGO_URI'] = os.getenv('MONGO_URI')
 
 mongo = PyMongo(app)
 
